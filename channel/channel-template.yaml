@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: mcm-channel-template
+objects:
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: Channel
+    metadata:
+      name: ${CHANNEL_NAME}
+      namespace: ${PROJECT_NAME}
+    spec:
+      type: Namespace
+      pathname: ${PROJECT_NAME}
+parameters:
+  - name: CHANNEL_NAME
+    required: true
+    value: ""
+  - name: PROJECT_NAME
+    required: true
+    value: ""
