@@ -1,3 +1,6 @@
+###
+###### Command to Run:  oc process -f deployable.yaml -p APP_NAME=myapp1 -p APP_PROJECT_NAME=default | oc apply -f -
+###
 apiVersion: v1
 kind: Template
 metadata:
@@ -7,7 +10,7 @@ objects:
     kind: Deployable
     metadata:
       name: ${APP_NAME}-deployment-deployable
-      namespace: ${NAMESPACE}
+      namespace: ${APP_PROJECT_NAME}
       labels:
         app: ${APP_NAME}
     spec:
@@ -60,6 +63,6 @@ parameters:
   - name: APP_NAME
     required: true
     value: ""
-  - name: NAMESPACE
+  - name: APP_PROJECT_NAME
     required: true
     value: ""

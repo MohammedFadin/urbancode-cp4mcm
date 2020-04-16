@@ -1,0 +1,42 @@
+#### Command to run: oc process -f subscription.yaml  -p SUBSCRIPTION_NAME=mylovelelycat -p SUBSCRIPTION_PROJECT_NAME=developer-editions \
+### -p CHANNEL_PROJECT_NAME=default -p CHANNEL_NAME=busycat | oc apply -f -
+apiVersion: v1
+kind: Template
+metadata:
+  name: mcm-subscription-template
+objects:
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: Subscription
+    metadata:
+      name: ${SUBSCRIPTION_NAME}
+      namespace: ${SUBSCRIPTION_PROJECT_NAME}
+      labels:
+        app: ${SUBSCRIPTION_NAME}
+    spec:
+      channel: ${CHANNEL_PROJECT_NAME}/${CHANNEL_NAME}
+      name: ""
+      packageFilter:
+        version: ">=1.x"
+      placement:
+        placementRef:
+          name: ${SUBSCRIPTION_NAME}-placement
+          kind: PlacementRule
+          group: app.ibm.com
+      # overrides:
+      #   - clusterName: "/"
+      #     clusterOverrides:
+      #       - path: "metadata.namespace"
+      #         value: default
+parameters:
+  - name: SUBSCRIPTION_NAME
+    required: true
+    value: ""
+  - name: SUBSCRIPTION_PROJECT_NAME
+    required: true
+    value: ""
+  - name: CHANNEL_PROJECT_NAME
+    required: true
+    value: ""
+  - name: CHANNEL_NAME
+    required: true
+    value: ""
