@@ -1,0 +1,31 @@
+#### Command to run: oc process -f subscription.yaml  -p SUBSCRIPTION_NAME=mylovelelycat -p SUBSCRIPTION_PROJECT_NAME=developer-editions \
+### -p CHANNEL_PROJECT_NAME=default -p CHANNEL_NAME=busycat | oc apply -f -
+apiVersion: v1
+kind: Template
+metadata:
+  name: mcm-configmap-template
+objects:
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: Deployable
+    metadata:
+      name: configmap-deployable
+      namespace: ${CHANNEL_PROJECT_NAME}
+      labels:
+        package: "fadin-package-app"
+    spec:
+      template:
+        kind: ConfigMap
+        apiVersion: v1
+        metadata:
+          name: ${APP_NAME}
+        data:
+          # Configuration values can be set as key-value properties
+          database: mongodb
+          database_uri: mongodb://localhost:27017
+parameters:
+  - name: APP_NAME
+    required: true
+    value: ""
+  - name: CHANNEL_NAME
+    required: true
+    value: ""

@@ -1,0 +1,38 @@
+#### Command to run: oc process -f application.yaml  -p APPLICATION_PROJECT_NAME=developer-editions APPLICATION_NAME=mylovelycat-app -p SUBSCRIPTION_PROJECT_NAME=default \
+### -p SUBSCRIPTION_NAME=mylovelelycat  | oc apply -f -
+apiVersion: v1
+kind: Template
+metadata:
+  name: mcm-application-template
+objects:
+  - apiVersion: app.k8s.io/v1beta1
+    kind: Application
+    metadata:
+      name: ${APPLICATION_NAME}
+      namespace: ${APPLICATION_PROJECT_NAME}
+      labels:
+        app: ${APPLICATION_NAME}
+    spec:
+      selector:
+        matchExpressions:
+          - key: app
+            operator: In
+            values:
+              - ${SUBSCRIPTION_NAME}
+      componentKinds:
+        - group: app.ibm.com
+          kind: Subscription
+
+parameters:
+  - name: SUBSCRIPTION_NAME
+    required: true
+    value: ""
+  - name: SUBSCRIPTION_PROJECT_NAME
+    required: true
+    value: ""
+  - name: APPLICATION_PROJECT_NAME
+    required: true
+    value: ""
+  - name: APPLICATION_NAME
+    required: true
+    value: ""

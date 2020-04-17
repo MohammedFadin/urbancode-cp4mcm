@@ -1,0 +1,12 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: mylovelelycat-placement
+  namespace: developer-editions
+  labels:
+    app: mylovelycat
+spec:
+  clusterReplicas: 2
+  clusterLabels:
+    matchLabels:
+      environment: Dev
