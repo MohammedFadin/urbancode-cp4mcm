@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: mcm-configmap-template
+  name: mcm-${APP_NAME}-configmap-template
 objects:
   - apiVersion: app.ibm.com/v1alpha1
     kind: Deployable
@@ -11,7 +11,7 @@ objects:
       name: configmap-deployable
       namespace: ${CHANNEL_PROJECT_NAME}
       labels:
-        package: "fadin-package-app"
+        package: ${APP_NAME}-package
     spec:
       template:
         kind: ConfigMap

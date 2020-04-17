@@ -12,6 +12,7 @@ objects:
       namespace: ${APPLICATION_PROJECT_NAME}
       labels:
         app: ${APPLICATION_NAME}
+        package: ${APPLICATION_NAME}-package
     spec:
       selector:
         matchExpressions:

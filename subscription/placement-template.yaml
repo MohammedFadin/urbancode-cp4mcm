@@ -1,12 +1,25 @@
-apiVersion: app.ibm.com/v1alpha1
-kind: PlacementRule
+apiVersion: v1
+kind: Template
 metadata:
-  name: mylovelelycat-placement
-  namespace: developer-editions
-  labels:
-    app: mylovelycat
-spec:
-  clusterReplicas: 2
-  clusterLabels:
-    matchLabels:
-      environment: Dev
+  name: placementrule-${APP_NAME}-template
+objects:
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: PlacementRule
+    metadata:
+      name: ${APPLICATION_NAME}-placement
+      namespace: ${APPLICATION_PROJECT_NAME}
+      labels:
+        app: ${APPLICATION_NAME}
+    spec:
+      clusterReplicas: 3
+      clusterLabels:
+        matchLabels:
+          allow-mcm: "yes"
+          # environment: Dev
+parameters:
+  - name: APPLICATION_NAME
+    required: true
+    value: ""
+  - name: APPLICATION_PROJECT_NAME
+    required: true
+    value: ""

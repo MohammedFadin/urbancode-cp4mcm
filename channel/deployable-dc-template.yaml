@@ -4,7 +4,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: deploymentconfig-template
+  name: deploymentconfig-${APP_NAME}-template
 objects:
   - apiVersion: app.ibm.com/v1alpha1
     kind: Deployable
@@ -13,6 +13,7 @@ objects:
       namespace: ${APP_PROJECT_NAME}
       labels:
         app: ${APP_NAME}
+        package: ${APP_NAME}-package
     spec:
       template:
         apiVersion: apps.openshift.io/v1

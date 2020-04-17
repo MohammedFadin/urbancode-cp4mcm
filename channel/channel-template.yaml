@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: mcm-channel-template
+  name: mcm-${CHANNEL_NAME}-channel-template
 objects:
   - apiVersion: app.ibm.com/v1alpha1
     kind: Channel
