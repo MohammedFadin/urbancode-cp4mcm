@@ -1,15 +1,17 @@
+#### Command to run: oc process -f subscription/application.yaml  \
+## -p SUBSCRIPTION_NAME=crmportal-backend-resources -p SUBSCRIPTION_PROJECT_NAME=torobank-workload -p APPLICATION_NAME=crm-portal | oc apply -f -
 apiVersion: v1
 kind: Template
 metadata:
-  name: placementrule-${APP_NAME}-template
+  name: placementrule-${SUBSCRIPTION_NAME}-template
 objects:
   - apiVersion: app.ibm.com/v1alpha1
     kind: PlacementRule
     metadata:
-      name: ${APPLICATION_NAME}-placement
-      namespace: ${APPLICATION_PROJECT_NAME}
+      name: ${SUBSCRIPTION_NAME}-placement
+      namespace: ${SUBSCRIPTION_PROJECT_NAME}
       labels:
-        app: ${APPLICATION_NAME}
+        app: ${SUBSCRIPTION_NAME}
     spec:
       clusterReplicas: 3
       clusterLabels:
@@ -17,9 +19,9 @@ objects:
           allow-mcm: "yes"
           # environment: Dev
 parameters:
-  - name: APPLICATION_NAME
+  - name: SUBSCRIPTION_NAME
     required: true
     value: ""
-  - name: APPLICATION_PROJECT_NAME
+  - name: SUBSCRIPTION_PROJECT_NAME
     required: true
     value: ""

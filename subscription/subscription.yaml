@@ -1,5 +1,5 @@
-#### Command to run: oc process -f subscription.yaml  -p SUBSCRIPTION_NAME=mylovelelycat -p SUBSCRIPTION_PROJECT_NAME=developer-editions \
-### -p CHANNEL_PROJECT_NAME=default -p CHANNEL_NAME=busycat | oc apply -f -
+#### Command to run: oc process -f subscription/subscription.yaml -p SUBSCRIPTION_NAME=crmportal-backend-resources \
+## -p SUBSCRIPTION_PROJECT_NAME=torobank-workload -p CHANNEL_PROJECT_NAME=torobank-hub -p CHANNEL_NAME=crmportal | oc apply -f -
 apiVersion: v1
 kind: Template
 metadata:

@@ -1,3 +1,5 @@
+##oc process -f channel/channel-template.yaml -p CHANNEL_NAME=crmportal -p PROJECT_NAME=torobank-hub | oc create -f -
+##
 apiVersion: v1
 kind: Template
 metadata:

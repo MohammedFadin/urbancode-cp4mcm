@@ -1,5 +1,4 @@
-#### Command to run: oc process -f subscription.yaml  -p SUBSCRIPTION_NAME=mylovelelycat -p SUBSCRIPTION_PROJECT_NAME=developer-editions \
-### -p CHANNEL_PROJECT_NAME=default -p CHANNEL_NAME=busycat | oc apply -f -
+#### Command to run: oc process -f channel/deployable-configmap-template.yaml -p  APP_NAME=crm-microservice -p CHANNEL_PROJECT_NAME=torobank-hub | oc create -
 apiVersion: v1
 kind: Template
 metadata:
@@ -26,6 +25,6 @@ parameters:
   - name: APP_NAME
     required: true
     value: ""
-  - name: CHANNEL_NAME
+  - name: CHANNEL_PROJECT_NAME
     required: true
     value: ""
