@@ -6,22 +6,30 @@ kind: Template
 metadata:
   name: service-${APP_NAME}-template
 objects:
-  - apiVersion: v1
-    kind: Service
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: Deployable
     metadata:
-      name: ${APP_NAME}
+      name: ${APP_NAME}-service-deployable
       namespace: ${APP_PROJECT_NAME}
       labels:
         app: ${APP_NAME}
         package: ${APP_NAME}-package
     spec:
-      ports:
-        - name: http-port
-          port: 3000
-          targetPort: 3000
-      selector:
-        deploymentconfig: ${APP_NAME}-dc
-      type: NodePort
+      template:
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: ${APP_NAME}
+          labels:
+            app: ${APP_NAME}
+        spec:
+          ports:
+            - name: http-port
+              port: 3000
+              targetPort: 3000
+          selector:
+            deploymentconfig: ${APP_NAME}-dc
+          type: NodePort
 parameters:
   - name: APP_NAME
     required: true

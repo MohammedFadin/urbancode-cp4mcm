@@ -6,20 +6,28 @@ kind: Template
 metadata:
   name: route-${APP_NAME}-template
 objects:
-  - apiVersion: route.openshift.io/v1
-    kind: Route
+  - apiVersion: app.ibm.com/v1alpha1
+    kind: Deployable
     metadata:
-      name: ${APP_NAME}
+      name: ${APP_NAME}-route-deployable
       namespace: ${APP_PROJECT_NAME}
       labels:
         app: ${APP_NAME}
         package: ${APP_NAME}-package
     spec:
-      port:
-        targetPort: 3000
-      to:
-        kind: Service
-        name: ${APP_NAME}
+      template:
+        apiVersion: route.openshift.io/v1
+        kind: Route
+        metadata:
+          name: ${APP_NAME}
+          labels:
+            app: ${APP_NAME}
+        spec:
+          port:
+            targetPort: 3000
+          to:
+            kind: Service
+            name: ${APP_NAME}
 parameters:
   - name: APP_NAME
     required: true
