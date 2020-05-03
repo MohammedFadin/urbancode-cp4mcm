@@ -16,7 +16,8 @@ objects:
       clusterReplicas: 3
       clusterLabels:
         matchLabels:
-          allow-mcm: "yes"
+          "${{CLUSTERS_LABELS}}"
+          # allow-mcm: "yes"
           # environment: Dev
 parameters:
   - name: SUBSCRIPTION_NAME
@@ -25,3 +26,6 @@ parameters:
   - name: SUBSCRIPTION_PROJECT_NAME
     required: true
     value: ""
+  - name: CLUSTERS_LABELS
+    required: true
+    value: "{ 'environment':'Dev' }"
