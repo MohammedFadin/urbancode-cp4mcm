@@ -15,11 +15,11 @@ objects:
         app: ${APP_NAME}
         package: ${APP_NAME}-package
     spec:
+      port:
+        targetPort: 3000
       to:
         kind: Service
         name: ${APP_NAME}
-        port:
-          targetPort: 3000
 parameters:
   - name: APP_NAME
     required: true
