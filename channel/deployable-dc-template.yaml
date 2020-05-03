@@ -40,7 +40,7 @@ objects:
                 deploymentconfig: ${APP_NAME}-dc
             spec:
               containers:
-                - image: ${APP_NAME}:latest
+                - image: alchen99/express-hello:latest
                   imagePullPolicy: Always
                   name: ${APP_NAME}
                   ports:
