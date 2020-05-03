@@ -1,0 +1,29 @@
+###
+###### Command to Run:  oc process -f deployable.yaml -p APP_NAME=myapp1 -p APP_PROJECT_NAME=default | oc apply -f -
+###
+apiVersion: v1
+kind: Template
+metadata:
+  name: route-${APP_NAME}-template
+objects:
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: ${APP_NAME}
+      namespace: ${APP_PROJECT_NAME}
+      labels:
+        app: ${APP_NAME}
+        package: ${APP_NAME}-package
+    spec:
+      to:
+        kind: Service
+        name: ${APP_NAME}
+        port:
+          targetPort: 3000
+parameters:
+  - name: APP_NAME
+    required: true
+    value: ""
+  - name: APP_PROJECT_NAME
+    required: true
+    value: ""

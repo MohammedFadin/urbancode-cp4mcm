@@ -1,0 +1,31 @@
+###
+###### Command to Run:  oc process -f deployable.yaml -p APP_NAME=myapp1 -p APP_PROJECT_NAME=default | oc apply -f -
+###
+apiVersion: v1
+kind: Template
+metadata:
+  name: service-${APP_NAME}-template
+objects:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: ${APP_NAME}
+      namespace: ${APP_PROJECT_NAME}
+      labels:
+        app: ${APP_NAME}
+        package: ${APP_NAME}-package
+    spec:
+      ports:
+        - name: http-port
+          port: 3000
+          targetPort: 3000
+      selector:
+        deploymentconfig: ${APP_NAME}-dc
+      type: NodePort
+parameters:
+  - name: APP_NAME
+    required: true
+    value: ""
+  - name: APP_PROJECT_NAME
+    required: true
+    value: ""
