@@ -28,4 +28,4 @@ parameters:
     value: ""
   - name: CLUSTERS_LABELS
     required: true
-    value: "{ 'environment':'Dev' }"
+    value: '{"environment": "Dev"}'
